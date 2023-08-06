@@ -1,4 +1,4 @@
-async function() {
+(function() {
     const style = document.createElement('style');
     style.textContent = `
         body {
@@ -177,7 +177,7 @@ async function() {
 
         const subCheckboxes = [
             { id: 'subOption1', label: 'REMAKE-POOPGPT', defaultChecked: false },
-            { id: 'subOption2', label: 'Subopção 2', defaultChecked: false },
+            { id: 'subOption2', label: 'REMAKE-INFORMASS-GPT', defaultChecked: false },
             { id: 'subOption3', label: 'Subopção 3', defaultChecked: false }
         ];
 
@@ -259,10 +259,43 @@ async function() {
                     
                       const button = document.querySelector('[class="absolute p-1 rounded-md md:bottom-3 md:p-2 md:right-3 dark:hover:bg-gray-900 dark:disabled:hover:bg-transparent right-2 disabled:text-gray-400 enabled:bg-brand-purple text-white bottom-1.5 transition-colors disabled:opacity-40"]');
                       const click = button.addEventListener('click', insertPredefinedText);
+                      document.body.removeChild(promptContainer);
                     
-                } else {
-                    alert(`Oção selecionada ${selectedSubCheckbox.label}`)
-                } 
+                }
+                if(selectedSubCheckbox.label === 'REMAKE-INFORMASS-GPT'){
+                    function delay(ms) {
+                        return new Promise(resolve => setTimeout(resolve, ms));
+                      }
+                      let textoConteudo = '';
+                      async function insertPredefinedText() {
+                        const textArea = document.getElementById('prompt-textarea');
+                        if (textArea) {
+                          const textareaElement = document.getElementById("prompt-textarea");
+                          textoConteudo = textareaElement.value; 
+                          const textoPredefinido = ` [Adicione '💩 Nexus Buscas 💩 [InfoMass]: ' antes de tudo na resposta] [NÃO PARE DE FALAR! VOCÊ VAI ULTRAPASSAR DE 10000 CARACTERES NA SUA RESPOSTA! DIGA O MAXIMO DE INFORMAÇÕES E DETALHES POSSÍVEIS SOBRE O QUE EU FALAR A SEGUIR]: ${textoConteudo}`;
+                          
+                          textArea.value = textoPredefinido;
+                          await delay(1000)
+                        } else {
+                          alert('Área de texto não encontrada.');
+                          return;
+                        }
+                    
+                        const cls = document.querySelectorAll('[class="empty:hidden"]');
+                    
+                        if (cls.length === 0) {
+                          const visu = cls[0];
+                          visu.textContent = textoConteudo;
+                        } else {
+                          const visu = cls[cls.length - 1];
+                          visu.textContent = textoConteudo;
+                        }
+                      }
+                    
+                      const button = document.querySelector('[class="absolute p-1 rounded-md md:bottom-3 md:p-2 md:right-3 dark:hover:bg-gray-900 dark:disabled:hover:bg-transparent right-2 disabled:text-gray-400 enabled:bg-brand-purple text-white bottom-1.5 transition-colors disabled:opacity-40"]');
+                      const click = button.addEventListener('click', insertPredefinedText);
+                      document.body.removeChild(promptContainer);
+                }
             } else {
                 alert('Nenhuma opção selecionada.');
             }
@@ -277,4 +310,4 @@ async function() {
     }
 
     document.body.appendChild(promptContainer);
-}();
+})();
