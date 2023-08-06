@@ -1,4 +1,4 @@
-(function() {
+async function() {
     const style = document.createElement('style');
     style.textContent = `
         body {
@@ -277,4 +277,4 @@
     }
 
     document.body.appendChild(promptContainer);
-})();
+}();
