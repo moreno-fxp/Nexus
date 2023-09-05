@@ -1,4 +1,4 @@
-javascript: (function() {
+(function() {
     var dialogo = document.createElement('div');
     dialogo.id = 'dialogo';
     dialogo.style.position = 'fixed';
